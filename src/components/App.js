@@ -12,10 +12,21 @@ function App() {
     .then(data => setListings(data))
   }, [])
 
+  function onDelete(deletedListing){
+    const wODeletedListingArray = listings.filter(listing => {
+      return listing.id !== deletedListing.id
+    })
+    setListings(wODeletedListingArray)
+  }
+
   return (
     <div className="app">
       <Header />
-      <ListingsContainer listings={listings} />
+      <ListingsContainer 
+        url={url} 
+        listings={listings} 
+        onDelete={onDelete}
+      />
     </div>
   );
 }

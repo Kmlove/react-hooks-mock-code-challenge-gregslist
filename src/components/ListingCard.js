@@ -1,11 +1,19 @@
 import React, { useState } from "react";
 
-function ListingCard({listing}) {
-  const {description, image, location} = listing
+function ListingCard({listing, url, onDelete}) {
+  const {id, description, image, location} = listing
   const [isLiked, setIsLiked] = useState(true)
 
   function handleLikeClick(){
     setIsLiked(!isLiked)
+  }
+
+  function handleDeleteClick(){
+    fetch(`${url}/${id}`, {
+      method: "DELETE"
+    })
+    .then(res => res.json())
+    .then(onDelete(listing))
   }
 
   return (
@@ -22,7 +30,7 @@ function ListingCard({listing}) {
         )}
         <strong>{description}</strong>
         <span> · {location}</span>
-        <button className="emoji-button delete">🗑</button>
+        <button onClick={handleDeleteClick} className="emoji-button delete">🗑</button>
       </div>
     </li>
   );
