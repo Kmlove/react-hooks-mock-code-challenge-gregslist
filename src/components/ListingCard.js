@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 function ListingCard({listing, url, onDelete}) {
   const {id, description, image, location} = listing
-  const [isLiked, setIsLiked] = useState(true)
+  const [isLiked, setIsLiked] = useState(false)
 
   function handleLikeClick(){
     setIsLiked(!isLiked)

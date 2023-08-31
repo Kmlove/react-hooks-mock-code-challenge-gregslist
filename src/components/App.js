@@ -5,6 +5,7 @@ import ListingsContainer from "./ListingsContainer";
 function App() {
   const url = "http://localhost:6001/listings"
   const [ listings, setListings] = useState([])
+  const [searchTerm, setSearchTerm] = useState("")
   
   useEffect(()=> {
     fetch(url)
@@ -19,9 +20,33 @@ function App() {
     setListings(wODeletedListingArray)
   }
 
+  function onSearchSubmit(searchWord){
+    const filteredListings = listings.filter(listing => {
+      return listing.description.toLowerCase().includes(searchWord.toLowerCase())
+    })
+    setListings(filteredListings)
+  }
+
+  function onSearchChange(value){
+    setSearchTerm(value)
+  }
+
+  useEffect(()=> {
+    if(searchTerm === ""){
+      fetch(url)
+      .then(res => res.json())
+      .then(data => setListings(data))
+    }
+  }, [searchTerm])
+
+
   return (
     <div className="app">
-      <Header />
+      <Header 
+        searchTerm={searchTerm} 
+        onSearchSubmit={onSearchSubmit} 
+        onSearchChange={onSearchChange}
+      />
       <ListingsContainer 
         url={url} 
         listings={listings} 
