@@ -12,6 +12,14 @@ function App() {
     .then(res => res.json())
     .then(data => setListings(data))
   }, [])
+  
+  useEffect(()=> {
+    if(searchTerm === ""){
+      fetch(url)
+      .then(res => res.json())
+      .then(data => setListings(data))
+    }
+  }, [searchTerm])
 
   function onDelete(deletedListing){
     const wODeletedListingArray = listings.filter(listing => {
@@ -31,13 +39,9 @@ function App() {
     setSearchTerm(value)
   }
 
-  useEffect(()=> {
-    if(searchTerm === ""){
-      fetch(url)
-      .then(res => res.json())
-      .then(data => setListings(data))
-    }
-  }, [searchTerm])
+  function onAddNewListingSubmit(newListing){
+    setListings([...listings, newListing])
+  }
 
 
   return (
@@ -46,6 +50,8 @@ function App() {
         searchTerm={searchTerm} 
         onSearchSubmit={onSearchSubmit} 
         onSearchChange={onSearchChange}
+        onAddNewListingSubmit={onAddNewListingSubmit}
+        url={url}
       />
       <ListingsContainer 
         url={url} 

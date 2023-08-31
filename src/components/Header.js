@@ -1,9 +1,10 @@
 import React from "react";
 import Search from "./Search";
+import NewListingForm from "./NewListingForm";
 
-function Header({onSearchSubmit, searchTerm, onSearchChange}) {
+function Header({onSearchSubmit, searchTerm, onSearchChange, onAddNewListingSubmit, url}) {
   return (
-    <header>
+    <header style={{display: "block"}}>
       <h1>
         <span className="logo" role="img">
           ☮
@@ -15,6 +16,7 @@ function Header({onSearchSubmit, searchTerm, onSearchChange}) {
         searchTerm={searchTerm} 
         onSearchChange={onSearchChange}
       />
+      <NewListingForm onAddNewListingSubmit={onAddNewListingSubmit} url={url} />
     </header>
   );
 }

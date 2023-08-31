@@ -1,4 +1,3 @@
-import { useState } from "react";
 
 function Search({onSearchSubmit, searchTerm, onSearchChange}) {
 
